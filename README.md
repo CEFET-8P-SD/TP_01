@@ -2,11 +2,11 @@
 ## Sistemas Distribuídos (SD)
 Trabalho de SD: TP I - Soquetes
 
-## Descrição
+#### Descrição do trabalho
 
-O trabalho compoẽ de um chat usando os protocolos TCP e UDP
+O trabalho compõe de um chat usando os protocolos TCP e UDP
 
-### Links para referência
+#### Links para referência
 
 * [Servers com multiplas threads 1](https://codezup.com/socket-server-with-multiple-clients-model-multithreading-python/)
 * [Servers com multiplas threads 2](https://www.positronx.io/create-socket-server-with-multiple-clients-in-python/)
