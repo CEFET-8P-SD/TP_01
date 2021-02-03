@@ -1,2 +1,13 @@
-# TP_01
-Trabalho de Sd: TP I - Soquetes
+# CEFET MG - Eng de computação
+## Sistemas Distribuídos (SD)
+Trabalho de SD: TP I - Soquetes
+
+## Descrição
+
+O trabalho compoẽ de um chat usando os protocolos TCP e UDP
+
+### Links para referência
+
+* [Servers com multiplas threads 1](https://codezup.com/socket-server-with-multiple-clients-model-multithreading-python/)
+* [Servers com multiplas threads 2](https://www.positronx.io/create-socket-server-with-multiple-clients-in-python/)
+* [Estrutura para socket básico TCP e UDP](https://wiki.python.org.br/SocketBasico)
