@@ -1,37 +1,39 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 import time
+from datetime import datetime
 
 
 # cliente se conectando ao chat
 def cliente_conectando_chat():
     while True:
-        connection, cliente = SERVER.accept()
-        print(f'{cliente} se conectou ao chat')
+        connection, client = SERVER.accept()
+        print(f'{client} se conectou ao chat')
         connection.send(bytes('Bem vindo ao chat com TCP!', 'utf8'))
         time.sleep(0.3)
         connection.send(bytes('Agora digite seu nome e pressione enter!', 'utf8'))
-        addresses[connection] = cliente
-        Thread(target=comunicacao_mensagem, args=(connection,)).start()
+        addresses[connection] = client
+        Thread(target=comunicacao_mensagem, args=(connection, client)).start()
 
 
-# Handles a single client connection
-def comunicacao_mensagem(client):
-    name = client.recv(BUFSIZ).decode('utf8')
-    client.send(bytes(f'Bem vindo {name}!', 'utf8'))
+# comunicacao do cliente no chat
+def comunicacao_mensagem(conn_client, client):
+    name = conn_client.recv(BUFSIZ).decode('utf8')
+    conn_client.send(bytes(f'Bem vindo {name}!', 'utf8'))
     time.sleep(0.3)
-    client.send(bytes('Se você quer sair, escreva \'{quit}\' para sair.', 'utf8'))
+    conn_client.send(bytes('Se você quer sair, escreva \'{quit}\' para sair.', 'utf8'))
     enviar_mensagem(bytes(f'{name} se juntou ao chat!', 'utf8'))
-    clients[client] = name
+    clients[conn_client] = name
 
     while True:
-        msg = client.recv(BUFSIZ)
+        msg = conn_client.recv(BUFSIZ)
         if msg != bytes('{quit}', 'utf8'):
-            enviar_mensagem(msg, name + ': ')
+            enviar_mensagem(msg, datetime.now().strftime('%H:%M:%S') + ' ' + name + ': ')
         else:
-            client.send(bytes('{quit}', 'utf8'))
-            client.close()
-            del clients[client]
+            conn_client.send(bytes('{quit}', 'utf8'))
+            print(f'{client} se desconectou do chat')
+            conn_client.close()
+            del clients[conn_client]
             enviar_mensagem(bytes(f'{name} saiu do chat.', 'utf8'))
             break
 

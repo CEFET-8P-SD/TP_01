@@ -23,7 +23,7 @@ def enviar_mensagem(event=None):
         top.quit()
 
 
-# This function is to be called when the window is closed
+# fechar a janela de chat
 def fechar_chat(event=None):
     my_msg.set("{quit}")
     enviar_mensagem()
