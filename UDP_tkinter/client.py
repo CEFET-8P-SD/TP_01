@@ -1,28 +1,27 @@
 from socket import socket, AF_INET, SOCK_DGRAM
-import tkinter
 from threading import Thread
+import tkinter
+import sys
 
-cliente = socket(family=AF_INET, type=SOCK_DGRAM)
+cliente = socket(AF_INET, SOCK_DGRAM)
 
 # ---------------------------------------------------------
 #   Definindo o endereço de destino - conjunto (ip, porta)
 # ---------------------------------------------------------
 host = '127.0.0.1'
-port = 5000
+user_name = sys.argv[2]
+port = 33000
 BUFSIZ = 1024
-
 destino = (host, port)
-
-# ---------------------------------------------------------
-#   Iniciando variável de Primeira conexão
-# ---------------------------------------------------------
-envio_1 = False
 
 
 def primeira_conexao():
     input_msg = ""
     cliente.sendto(input_msg.encode(), destino)
-    envio_1 = True
+
+
+def nome_usuario():
+    cliente.sendto(user_name.encode(), destino)
 
 
 # ---------------------------------------------------------
@@ -53,6 +52,7 @@ def fechar_chat(event=None):
 
 
 primeira_conexao()
+nome_usuario()
 
 # ---------------------------------------------------------
 #   Configurando Interface de comunicação com o cliente

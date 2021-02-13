@@ -10,7 +10,8 @@ class Server:
         self.__destinos = {}
 
         host = ''
-        porta = 5000
+        porta = 33000
+        self.__BUFSIZ = 1024
         self.__servidor_sk.bind((host, porta))
 
     def _run(self):
@@ -18,7 +19,7 @@ class Server:
         print("Protocolo de inicialização bem sucedido. \n")
 
         while True:
-            codigo, cliente = self.__servidor_sk.recvfrom(2048)
+            codigo, cliente = self.__servidor_sk.recvfrom(self.__BUFSIZ)
             mensagem = codigo.decode()
 
             if cliente in self.__clientes:
@@ -53,10 +54,7 @@ class Server:
         mensagem_1 = "Bem vindo ao protocolo de comunicação UDP."
         self.__servidor_sk.sendto(mensagem_1.encode(), destino)
 
-        mensagem_2 = "Agora que está conectado, informe seu nome:"
-        self.__servidor_sk.sendto(mensagem_2.encode(), destino)
-
-        nome_c, cliente = self.__servidor_sk.recvfrom(2048)
+        nome_c, cliente = self.__servidor_sk.recvfrom(self.__BUFSIZ)
         nome = nome_c.decode()
 
         self.__clientes.append(cliente)
