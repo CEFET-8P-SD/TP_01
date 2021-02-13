@@ -1,6 +1,7 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 import tkinter
+import sys
 
 
 # receber mensagens.
@@ -29,6 +30,11 @@ def fechar_chat(event=None):
     enviar_mensagem()
 
 
+# manda para o server o nome do usuario
+def nome_usuario():
+    client_socket.send(bytes(USER_NAME, 'utf8'))
+
+
 top = tkinter.Tk()
 top.title('Chat usando Protocolo TCP')
 top.resizable(width=True, height=True)
@@ -54,12 +60,15 @@ send_button.pack()
 
 top.protocol('WM_DELETE_WINDOW', fechar_chat)
 
-HOST = '127.0.0.1'
+HOST = str(sys.argv[1])
+USER_NAME = sys.argv[2]
 PORT = 33001
 BUFSIZ = 1024
 
 client_socket = socket(AF_INET, SOCK_STREAM)
 client_socket.connect((HOST, PORT))
+
+nome_usuario()
 
 receive_thread = Thread(target=receber_mensagem)
 receive_thread.start()

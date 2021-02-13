@@ -28,8 +28,6 @@ class Server:
             connection, client = self.__SERVER.accept()
             print(f'{client} se conectou ao chat')
             connection.send(bytes('Bem vindo ao chat com TCP!', 'utf8'))
-            time.sleep(0.3)
-            connection.send(bytes('Agora digite seu nome e pressione enter!', 'utf8'))
             self.__addresses[connection] = client
             Thread(target=self.__comunicacao_mensagem, args=(connection, client)).start()
 
