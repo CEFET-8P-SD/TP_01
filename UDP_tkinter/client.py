@@ -8,7 +8,7 @@ cliente = socket(AF_INET, SOCK_DGRAM)
 # ---------------------------------------------------------
 #   Definindo o endereço de destino - conjunto (ip, porta)
 # ---------------------------------------------------------
-host = '127.0.0.1'
+host = str(sys.argv[1])
 user_name = sys.argv[2]
 port = 33000
 BUFSIZ = 1024
