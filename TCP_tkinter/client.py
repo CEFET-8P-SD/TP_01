@@ -3,6 +3,16 @@ from threading import Thread
 import tkinter
 import sys
 
+client_socket = socket(AF_INET, SOCK_STREAM)
+
+# ---------------------------------------------------------
+#   Definindo o endereço de destino - conjunto (ip, porta)
+# ---------------------------------------------------------
+HOST = str(sys.argv[1])
+USER_NAME = sys.argv[2]
+PORT = 33001
+BUFSIZ = 1024
+
 
 # receber mensagens.
 def receber_mensagem():
@@ -60,14 +70,7 @@ send_button.pack()
 
 top.protocol('WM_DELETE_WINDOW', fechar_chat)
 
-HOST = str(sys.argv[1])
-USER_NAME = sys.argv[2]
-PORT = 33001
-BUFSIZ = 1024
-
-client_socket = socket(AF_INET, SOCK_STREAM)
 client_socket.connect((HOST, PORT))
-
 nome_usuario()
 
 receive_thread = Thread(target=receber_mensagem)
